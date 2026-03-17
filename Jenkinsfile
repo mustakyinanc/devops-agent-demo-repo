@@ -8,7 +8,7 @@ pipeline {
 
         // Demo: Bilerek fail ettirmek icin 'true' yapip push edin
         // Normal calisma icin 'false' birakin
-        FORCE_FAIL     = 'false'
+        FORCE_FAIL     = 'true'
     }
 
     tools {
