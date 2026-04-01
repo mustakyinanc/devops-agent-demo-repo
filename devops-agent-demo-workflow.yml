@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 env:
-  FORCE_FAIL: 'true'  # Set to 'true' to intentionally fail for demo purposes
+  FORCE_FAIL: 'false'  # Set to 'true' to intentionally fail for demo purposes
 
 permissions:
   contents: read
@@ -22,10 +22,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Check demo fail flag
-        if: env.FORCE_FAIL == 'true'
         run: |
-          echo "FORCE_FAIL=true detected — failing intentionally for demo."
-          exit 1
+          if [ "$FORCE_FAIL" = "true" ]; then
+            echo "FORCE_FAIL=true detected — failing intentionally for demo."
+            exit 1
+          fi
 
       - name: Maven Build
         run: echo "Building application... Done."
@@ -86,7 +87,7 @@ jobs:
 
       - name: Trigger DevOps Agent Investigation
         env:
-          DEVOPS_AGENT_WEBHOOK_URL: ${{ rets.DEVOPS_AGENT_WEBHOOK_URL }}
+          DEVOPS_AGENT_WEBHOOK_URL: ${{ secrets.DEVOPS_AGENT_WEBHOOK_URL }}
           DEVOPS_AGENT_WEBHOOK_SECRET: ${{ secrets.DEVOPS_AGENT_WEBHOOK_SECRET }}
         run: |
           TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%S.000Z)
