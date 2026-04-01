@@ -86,7 +86,7 @@ jobs:
 
       - name: Trigger DevOps Agent Investigation
         env:
-          DEVOPS_AGENT_WEBHOOK_URL: ${{ rets.DEVOPS_AGENT_WEBHOOK_URL }}
+          DEVOPS_AGENT_WEBHOOK_URL: ${{ secrets.DEVOPS_AGENT_WEBHOOK_URL }}
           DEVOPS_AGENT_WEBHOOK_SECRET: ${{ secrets.DEVOPS_AGENT_WEBHOOK_SECRET }}
         run: |
           TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%S.000Z)
